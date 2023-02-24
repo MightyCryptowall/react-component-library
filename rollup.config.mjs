@@ -5,6 +5,8 @@ import dts from "rollup-plugin-dts";
 import json from "@rollup/plugin-json";
 
 import packageJson from "./package.json" assert { type: "json" };
+import nodePolyfills from 'rollup-plugin-polyfill-node';
+
 // const packageJson = require("./package.json");
 
 export default [
@@ -22,10 +24,14 @@ export default [
         sourcemap: true,
       },
     ],
+    resolve: ({ 
+      preferBuiltins: false 
+    }),
     plugins: [
       resolve(),
       commonjs(),
       typescript({ tsconfig: "./tsconfig.json" }),
+      nodePolyfills(),
       json(),
     ],
   },
